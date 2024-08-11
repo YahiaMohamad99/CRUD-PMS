@@ -37,13 +37,12 @@ function addProduct() {
   }
 }
 function displayProduct(data) {
-data == productsList ? console.log("product List") :console.log(" New product List")  ;
 
   var cartona = "";
   for (var i = 0; i < data.length; i++) {
     cartona += `  <tr>
   <td>${i + 1}</td>
-  <td>${data == productsList ? data[i].name :  data[i].newName  }</td>
+  <td>${data[i].newName ? data[i].newName :data[i].name}</td>
   <td>${data[i].price}</td>
   <td>${data[i].categ}</td>
   <td>${data[i].desc}</td>
@@ -95,14 +94,16 @@ function searchProduct(data) {
   for (var i = 0; i < productsList.length; i++) {
     var newData = data.toLowerCase();
     if (productsList[i].name.toLowerCase().includes(newData)) {
-      productsList[i].newName = productsList[i].name.toLowerCase().replaceAll(newData, `<span class = "text-warning">${newData}</span>`);
+      var regex = new RegExp(`[${data}${newData}]`, "gim");
+      
+      productsList[i].newName = productsList[i].name.replaceAll(regex, `<span class = "bg-warning text-dark">${data}</span>`);
 
       newProductsList.push(productsList[i]);
     }
  
-  
+    displayProduct(newProductsList)
+
   }
- data == ''?displayProduct(productsList):displayProduct(newProductsList)
 }
 
 
