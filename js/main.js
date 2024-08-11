@@ -92,22 +92,17 @@ function searchProduct(data) {
   var newProductsList = [];
 
   for (var i = 0; i < productsList.length; i++) {
-    var newData = data.toLowerCase();
-    if (productsList[i].name.toLowerCase().includes(newData)) {
-      var regex = new RegExp(`[${data}${newData}]`, "gim");
+    if (productsList[i].name.toLowerCase().includes(data.toLowerCase())) {
+      
+      var regex = new RegExp(`[${data}]`, "gi");
       
       productsList[i].newName = productsList[i].name.replaceAll(regex, `<span class = "bg-warning text-dark">${data}</span>`);
 
       newProductsList.push(productsList[i]);
     }
- 
     displayProduct(newProductsList)
-
   }
 }
-
-
-
 
 
 
