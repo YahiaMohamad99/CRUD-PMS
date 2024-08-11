@@ -38,6 +38,7 @@ function addProduct() {
 }
 function displayProduct(data) {
 
+
   var cartona = "";
   for (var i = 0; i < data.length; i++) {
     cartona += `  <tr>
@@ -90,28 +91,17 @@ function savaUpdate() {
 }
 function searchProduct(data) {
   var newProductsList = [];
+  var escapedData = data.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+  var regex = new RegExp(escapedData, "gi");
 
   for (var i = 0; i < productsList.length; i++) {
     if (productsList[i].name.toLowerCase().includes(data.toLowerCase())) {
-      
-      var regex = new RegExp(`[${data}]`, "gi");
-      
-      productsList[i].newName = productsList[i].name.replaceAll(regex, `<span class = "bg-warning text-dark">${data}</span>`);
-
+      productsList[i].newName = productsList[i].name.replaceAll(regex, `<span class = "bg-warning text-dark">${data}</span>`);      
       newProductsList.push(productsList[i]);
     }
-    displayProduct(newProductsList)
-  }
+  }  
+      displayProduct(newProductsList)
 }
-
-
-
-
-
-
-
-
-
 
 function validateName() {
   var regex = /^[A-Z].+$/;
